@@ -6,7 +6,7 @@
 /*   By: nbaidaou <nbaidaou@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/22 15:30:18 by nbaidaou          #+#    #+#             */
-/*   Updated: 2025/09/22 18:14:55 by nbaidaou         ###   ########.fr       */
+/*   Updated: 2025/09/23 16:52:05 by nbaidaou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,20 @@
 # include <stdlib.h>
 # include <string.h>
 # include <unistd.h>
+
+# define WIN_W 1024
+# define WIN_H 768
+
+# define KEY_W 119
+# define KEY_A 100
+# define KEY_S 115
+# define KEY_D 97
+# define KEY_LEFT 65361
+# define KEY_RIGHT 65363
+# define KEY_ESC 65307
+
+# define STEP_SIZE 0.05
+# define ROT_SPEED 0.03
 
 typedef struct s_texture
 {
@@ -55,12 +69,23 @@ typedef struct s_player
     double plane_y;
 }               t_player;
 
+typedef struct s_img
+{
+    void    *img;
+    char    *addr;
+    int     width;
+    int     bits_per_pixel;
+    int     line_length;
+    int     endian;
+}               t_img;
+
 typedef struct s_data
 {
     void    *mlx;
     void    *win;
     t_map   map;
     t_player player;
+    t_img   img;
 }               t_data;
 
 // Parsing functions
@@ -89,4 +114,20 @@ int is_valide_map(t_map *map);
 int init_data(t_data *data, char *file);
 int ini_map(t_map *map);
 int init_player(t_player *player, t_map *map);
+int init_window(t_data *data);
+
+// Load_textures
+int load_textues(t_data *data);
+
+// free 
+void free_map(t_data *data);
+void free_all(t_data *data,char *msg,int ex);
+
+// keypress
+int handle_keypress(int key_code,t_data * data);
+
+// rendering
+int render_frame(t_data * data);
+void	my_pixel_put(t_img *img, int x, int y, int color);
+
 #endif

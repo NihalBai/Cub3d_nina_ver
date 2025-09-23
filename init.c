@@ -6,7 +6,7 @@
 /*   By: nbaidaou <nbaidaou@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/22 15:31:09 by nbaidaou          #+#    #+#             */
-/*   Updated: 2025/09/22 18:16:36 by nbaidaou         ###   ########.fr       */
+/*   Updated: 2025/09/23 15:31:09 by nbaidaou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -94,4 +94,24 @@ int init_player(t_player *player, t_map *map)
         i++;
     }
     return (0);
+}
+
+int init_window(t_data *data)
+{
+    data->mlx = mlx_init();
+    if (!data->mlx)
+        return (0);
+    data->win = mlx_new_window(data->mlx, WIN_W, WIN_H, "Cub3D");
+    if (!data->win)
+    {
+        free(data->mlx);
+        return (0);
+    }
+    data->img.img= mlx_new_img(data->mlx,WIN_W,WIN_H);
+    if(!data->img.img)
+        return 0;
+    data->img.addr=mlx_get_data_addr(data->img.img, &data->img.bits_per_pixel, &data->img.line_length, &data->img.endian);
+    if(!data->img.addr)
+        return 0;
+    return (1);
 }

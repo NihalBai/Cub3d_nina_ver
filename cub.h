@@ -6,7 +6,7 @@
 /*   By: nbaidaou <nbaidaou@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/22 15:30:18 by nbaidaou          #+#    #+#             */
-/*   Updated: 2025/09/23 16:52:05 by nbaidaou         ###   ########.fr       */
+/*   Updated: 2025/10/18 15:10:03 by nbaidaou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,6 +37,7 @@
 # define STEP_SIZE 0.05
 # define ROT_SPEED 0.03
 
+# define INFINI 1e30
 typedef struct s_texture
 {
     void    *img;
@@ -78,6 +79,26 @@ typedef struct s_img
     int     line_length;
     int     endian;
 }               t_img;
+
+typedef struct s_ray
+{
+    double camera_x;
+    double ray_x_dir;
+    double ray_y_dir;
+    int     current_map_x; 
+    int     current_map_y; 
+    double delta_dist_x;
+    double delta_dist_y;
+    int hit;
+    int side_hit;
+    int step_x;
+    int step_y;
+    double  side_dist_x;  
+    double  side_dist_y; 
+    double wall_dist;
+    int 
+    
+}t_ray;
 
 typedef struct s_data
 {
@@ -130,4 +151,6 @@ int handle_keypress(int key_code,t_data * data);
 int render_frame(t_data * data);
 void	my_pixel_put(t_img *img, int x, int y, int color);
 
+// ray_casting
+void ray_casting(t_data *data);
 #endif

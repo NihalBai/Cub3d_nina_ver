@@ -6,7 +6,7 @@
 /*   By: nbaidaou <nbaidaou@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/22 15:30:18 by nbaidaou          #+#    #+#             */
-/*   Updated: 2025/10/18 15:10:03 by nbaidaou         ###   ########.fr       */
+/*   Updated: 2025/10/18 21:03:24 by nbaidaou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,6 +38,12 @@
 # define ROT_SPEED 0.03
 
 # define INFINI 1e30
+
+# define EA_TEX 1;
+# define WE_TEX 2;
+# define SO_TEX 3;
+# define NO_TEX 4;
+
 typedef struct s_texture
 {
     void    *img;
@@ -96,7 +102,12 @@ typedef struct s_ray
     double  side_dist_x;  
     double  side_dist_y; 
     double wall_dist;
-    int 
+    int line_height_wall;
+    int draw_pos_start;
+    int draw_pos_end;
+    double  wall_x_pos;         
+    int     tex_x;       
+    int     tex_y; 
     
 }t_ray;
 
@@ -107,6 +118,7 @@ typedef struct s_data
     t_map   map;
     t_player player;
     t_img   img;
+    t_ray   ray;
 }               t_data;
 
 // Parsing functions

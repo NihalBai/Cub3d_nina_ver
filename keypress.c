@@ -6,7 +6,7 @@
 /*   By: nbaidaou <nbaidaou@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/23 15:58:42 by nbaidaou          #+#    #+#             */
-/*   Updated: 2025/09/23 16:31:56 by nbaidaou         ###   ########.fr       */
+/*   Updated: 2025/10/21 11:24:37 by nbaidaou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,7 +77,7 @@ void strafe_right(t_data *data)
 int	handle_keypress(int keycode, t_data *data)
 {
 	if (keycode == KEY_ESC)
-		cleanup_and_exit(data, NULL, 0);
+		free_all(data, NULL, 0);
 	else if (keycode == KEY_W)
 		move_forward(data);
 	else if (keycode == KEY_S)

@@ -6,7 +6,7 @@
 /*   By: nbaidaou <nbaidaou@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/23 16:35:22 by nbaidaou          #+#    #+#             */
-/*   Updated: 2025/09/23 16:42:02 by nbaidaou         ###   ########.fr       */
+/*   Updated: 2025/10/21 11:28:11 by nbaidaou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,6 +37,6 @@ int render_frame(t_data * data)
 {
     draw_floor_ceiling(data);
     ray_casting(data);
-    mlx_put_image_to_window(data->mlx,data->img.img,0,0);
+    mlx_put_image_to_window(data->mlx,data->win,data->img.img,0,0);
     return 0;
 }

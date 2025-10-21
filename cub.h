@@ -6,7 +6,7 @@
 /*   By: nbaidaou <nbaidaou@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/22 15:30:18 by nbaidaou          #+#    #+#             */
-/*   Updated: 2025/10/18 21:03:24 by nbaidaou         ###   ########.fr       */
+/*   Updated: 2025/10/21 11:40:58 by nbaidaou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 #define CUB_H   
 
 # include "get_next_line/get_next_line.h"
-// # include <mlx.h>
+# include "/home/nbaidaou/Documents/minilibx-linux-master/mlx.h"
 # include "libft/libft.h"
 # include <fcntl.h>
 # include <math.h>
@@ -39,10 +39,13 @@
 
 # define INFINI 1e30
 
-# define EA_TEX 1;
-# define WE_TEX 2;
-# define SO_TEX 3;
-# define NO_TEX 4;
+# define X_SIDE 0
+# define Y_SIDE 1
+
+# define EA_TEX 1
+# define WE_TEX 2
+# define SO_TEX 3
+# define NO_TEX 4
 
 typedef struct s_texture
 {
@@ -108,6 +111,8 @@ typedef struct s_ray
     double  wall_x_pos;         
     int     tex_x;       
     int     tex_y; 
+    double   step_size; 
+    double  tex_pos;
     
 }t_ray;
 
@@ -122,7 +127,7 @@ typedef struct s_data
 }               t_data;
 
 // Parsing functions
-int parsing(t_map *map, char *filename);
+int parsing(t_map *map, int fd);
 int pars_textures(t_map *map, char *line);
 int parse_colors(t_map *map, char *line);
 int parse_map(t_map *map, char *line);
@@ -155,14 +160,19 @@ int load_textues(t_data *data);
 // free 
 void free_map(t_data *data);
 void free_all(t_data *data,char *msg,int ex);
+void destroy_textures(t_data *data);
 
 // keypress
 int handle_keypress(int key_code,t_data * data);
-
+void rotate_left(t_data * data);
+void rotate_right(t_data * data);
 // rendering
 int render_frame(t_data * data);
 void	my_pixel_put(t_img *img, int x, int y, int color);
 
 // ray_casting
 void ray_casting(t_data *data);
+
+// drawing
+void	draw_walls(t_data *data, int x);
 #endif

@@ -7,7 +7,7 @@ CFLAGS = -Wall -Wextra -Werror -I. -Ilibft -Iget_next_line -I$(MLX_DIR)
 # -----------------------
 # Directories & Libraries
 # -----------------------
-MLX_DIR = minilibx-linux
+MLX_DIR = /home/nbaidaou/Documents/minilibx-linux-master
 LIBFT_DIR = libft
 GNL_DIR = get_next_line
 
@@ -18,7 +18,7 @@ MLX_LIB = -L$(MLX_DIR) -lmlx_Linux -lX11 -lXext -lm
 # -----------------------
 # Source & Object Files
 # -----------------------
-SRC = main.c parsing.c f_free.c init.c moves.c map_validation.c ray_casting.c drawing.c mouvement.c set_up.c
+SRC = init.c main_parsing.c parsing_helpers.c drawing.c keypress.c ray_casting.c f_free.c rendering.c load_textures.c  map_validation.c  rendering_helpers.c helpers.c  main.c parsing.c rotate_keypress.c
 OBJ = $(SRC:.c=.o)
 
 # -----------------------

@@ -6,7 +6,7 @@
 /*   By: nbaidaou <nbaidaou@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/22 15:30:47 by nbaidaou          #+#    #+#             */
-/*   Updated: 2025/09/23 16:34:22 by nbaidaou         ###   ########.fr       */
+/*   Updated: 2025/10/21 11:31:54 by nbaidaou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,7 +43,7 @@ int main(int ac, char **av)
         printf("Error: Initialization failed.\n");
         return (1);
     }
-    if(!ini_window(&data))
+    if(!init_window(&data))
     {
         free_map(&data);
         printf("Error: Window initialization failed.\n");

@@ -6,7 +6,7 @@
 /*   By: nbaidaou <nbaidaou@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/22 17:03:42 by nbaidaou          #+#    #+#             */
-/*   Updated: 2025/09/22 17:04:17 by nbaidaou         ###   ########.fr       */
+/*   Updated: 2025/10/21 14:03:33 by nbaidaou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,10 +14,17 @@
 
 static int handle_before_map(t_map *map, char *line)
 {
+    int tex;
+    int color;
     if (is_empty_line(line))
         return (1);
-    if (pars_textures(map, line) || parse_colors(map, line))
+    tex= pars_textures(map, line);
+    color = parse_colors(map, line);
+    if (tex==0 || color==0)
+    {
+        printf("Parsing color line: '%d' -> color = %d\n", tex, color);
         return (1);
+    }
     return (0);
 }
 

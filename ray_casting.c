@@ -6,7 +6,7 @@
 /*   By: nbaidaou <nbaidaou@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/18 13:51:03 by nbaidaou          #+#    #+#             */
-/*   Updated: 2025/10/18 20:40:32 by nbaidaou         ###   ########.fr       */
+/*   Updated: 2025/10/21 10:14:48 by nbaidaou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,7 +59,7 @@ void	steps_dir_init_side_dis(t_data *data, t_ray *ray)
 
 void	wall_height(t_data *data, t_ray *r)
 {
-	if (r->side_hit == 0)
+	if (r->side_hit == X_SIDE)
 		r->wall_dist = (r->current_map_x - data->player.x + (1 - r->step_x) / 2)
 			/ r->ray_x_dir;
 	else
@@ -82,13 +82,13 @@ void dda(t_data *data ,t_ray *r)
 		{
 			r->side_dist_x += r->delta_dist_x;
 			r->current_map_x +=r->step_x;
-			r->side_hit = 0;
+			r->side_hit = X_SIDE;
 		}
 		else
 		{
 			r->side_dist_y += r->delta_dist_y;
 			r->current_map_y +=r->step_y;
-			r->side_hit = 1;
+			r->side_hit = Y_SIDE;
 		}
 		if(data->map.map_grid[r->current_map_x][r->current_map_y] ==1)
 		r->hit =1;

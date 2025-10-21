@@ -6,7 +6,7 @@
 /*   By: nbaidaou <nbaidaou@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/22 16:01:37 by nbaidaou          #+#    #+#             */
-/*   Updated: 2025/09/22 16:46:12 by nbaidaou         ###   ########.fr       */
+/*   Updated: 2025/10/21 13:43:59 by nbaidaou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,7 +54,7 @@ int pars_color(char *str)
     b = ft_atoi(colors[2]);
     free_split(colors);
     if (r < 0 || r > 255 || g < 0 || g > 255 || b < 0 || b > 255)
-        return (-1);
+        return (0);
     return ((r << 16) | (g << 8) | b);
 }
 

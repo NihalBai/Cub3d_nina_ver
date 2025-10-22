@@ -6,7 +6,7 @@
 /*   By: nbaidaou <nbaidaou@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/22 15:30:47 by nbaidaou          #+#    #+#             */
-/*   Updated: 2025/10/21 11:31:54 by nbaidaou         ###   ########.fr       */
+/*   Updated: 2025/10/22 17:02:28 by nbaidaou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,6 +57,6 @@ int main(int ac, char **av)
     mlx_hook(data.win,2,1<<0,handle_keypress,&data);
     mlx_hook(data.win, 17, 1L<<17, handle_close, &data);
     mlx_loop_hook(data.mlx, render_frame, &data);
-	mlx_loop(data.mlx);
+    mlx_loop(data.mlx);
     return 0;
 }

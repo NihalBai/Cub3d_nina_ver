@@ -6,7 +6,7 @@
 /*   By: nbaidaou <nbaidaou@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/18 20:41:21 by nbaidaou          #+#    #+#             */
-/*   Updated: 2025/10/21 11:23:29 by nbaidaou         ###   ########.fr       */
+/*   Updated: 2025/10/22 13:40:09 by nbaidaou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,17 +14,17 @@
 
 static int	get_wall_texture(t_data *data)
 {
-	if (data->ray.side_hit == 0)
+	if (data->ray.side_hit == X_SIDE)
 	{
 		if (data->ray.ray_x_dir > 0)
-			return (EA_TEX);
-		return (WE_TEX);
+			return (EA_TEX - 1);  // EA_TEX is 1, array index is 0
+		return (WE_TEX - 1);      // WE_TEX is 2, array index is 1
 	}
 	else
 	{
 		if (data->ray.ray_y_dir > 0)
-			return (SO_TEX);
-		return (NO_TEX);
+			return (SO_TEX - 1);  // SO_TEX is 3, array index is 2
+		return (NO_TEX - 1);      // NO_TEX is 4, array index is 3
 	}
 }
 
@@ -38,7 +38,7 @@ void	calculate_tex_coordinates(t_data *data, t_ray *r, int tx_num)
 	else
 		r->wall_x_pos = data->player.x + r->wall_dist * r->ray_x_dir;
 	r->wall_x_pos -= floor(r->wall_x_pos);
-	r->tex_x = (int)(r->wall_dist * tx->width);
+	r->tex_x = (int)(r->wall_x_pos * tx->width);
 	if (r->tex_x < 0)
 		r->tex_x = 0;
 	if (r->tex_x >= tx->width)
@@ -69,19 +69,20 @@ void	draw_walls(t_data *data, int x)
 	int			p_tx;
 	t_texture	*tx;
 
-	i = 0;
 	tx_num = get_wall_texture(data);
 	tx = &data->map.textures[tx_num];
 	calculate_tex_coordinates(data, &data->ray, tx_num);
-	while (i == data->ray.draw_pos_start && i <= data->ray.draw_pos_end)
+	i = data->ray.draw_pos_start;
+	while (i <= data->ray.draw_pos_end)
 	{
 		p_tx = (int)data->ray.tex_pos;
 		if (p_tx >= tx->height)
 			p_tx = p_tx % tx->height;
 		else if (p_tx < 0)
 			p_tx = 0;
-		color = get_texture_color(tx, data->ray.tex_x, data->ray.tex_y);
+		color = get_texture_color(tx, data->ray.tex_x, p_tx);
 		my_pixel_put(&data->img, x, i, color);
 		data->ray.tex_pos += data->ray.step_size;
+		i++;
 	}
 }

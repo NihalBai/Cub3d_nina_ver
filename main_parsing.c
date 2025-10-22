@@ -6,7 +6,7 @@
 /*   By: nbaidaou <nbaidaou@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/22 17:03:42 by nbaidaou          #+#    #+#             */
-/*   Updated: 2025/10/21 14:03:33 by nbaidaou         ###   ########.fr       */
+/*   Updated: 2025/10/22 13:43:50 by nbaidaou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,13 +18,15 @@ static int handle_before_map(t_map *map, char *line)
     int color;
     if (is_empty_line(line))
         return (1);
-    tex= pars_textures(map, line);
-    color = parse_colors(map, line);
-    if (tex==0 || color==0)
-    {
-        printf("Parsing color line: '%d' -> color = %d\n", tex, color);
+    /* A non-map header line can be either a texture or a color line.
+       Consider the line handled if either parser succeeds. */
+    tex = pars_textures(map, line);
+    if (tex)
         return (1);
-    }
+    color = parse_colors(map, line);
+    if (color)
+        return (1);
+    /* Neither parser handled the line -> not a valid header line */
     return (0);
 }
 

@@ -6,7 +6,7 @@
 /*   By: nbaidaou <nbaidaou@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/23 15:58:42 by nbaidaou          #+#    #+#             */
-/*   Updated: 2025/10/21 11:24:37 by nbaidaou         ###   ########.fr       */
+/*   Updated: 2025/10/22 17:07:25 by nbaidaou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,8 +47,9 @@ void strafe_left(t_data *data)
      double new_x;
     double new_y;
 
-    new_x = data->player.x - data->player.dir_x * STEP_SIZE;
-    new_y = data->player.y + data->player.dir_y * STEP_SIZE;
+    /* Strafe left: move perpendicular to direction: (-dir_y, dir_x) */
+    new_x = data->player.x + (-data->player.dir_y) * STEP_SIZE;
+    new_y = data->player.y + (data->player.dir_x) * STEP_SIZE;
 
     if (new_x >= 0 && new_y >= 0 && new_x < data->map.width && new_y < data->map.height && is_walkable_cell(data->map.map_grid[(int)new_y][(int)new_x]))
     {
@@ -62,9 +63,9 @@ void strafe_right(t_data *data)
      double new_x;
     double new_y;
 
-    
-    new_x = data->player.x + data->player.dir_x * STEP_SIZE;
-    new_y = data->player.y - data->player.dir_y * STEP_SIZE;
+    /* Strafe right: move perpendicular to direction: (dir_y, -dir_x) */
+    new_x = data->player.x + (data->player.dir_y) * STEP_SIZE;
+    new_y = data->player.y + (-data->player.dir_x) * STEP_SIZE;
 
     if (new_x >= 0 && new_y >= 0 && new_x < data->map.width && new_y < data->map.height && is_walkable_cell(data->map.map_grid[(int)new_y][(int)new_x]))
     {

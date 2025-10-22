@@ -6,7 +6,7 @@
 /*   By: nbaidaou <nbaidaou@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/18 13:51:03 by nbaidaou          #+#    #+#             */
-/*   Updated: 2025/10/21 10:14:48 by nbaidaou         ###   ########.fr       */
+/*   Updated: 2025/10/22 16:56:46 by nbaidaou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ void	init_ray(t_data *data, t_ray *ray, int x)
 		ray->delta_dist_x = INFINI;
 	else
 		ray->delta_dist_x = fabs(1 / ray->ray_x_dir);
-	if (ray->ray_x_dir == 0)
+	if (ray->ray_y_dir == 0)
 		ray->delta_dist_y = INFINI;
 	else
 		ray->delta_dist_y = fabs(1 / ray->ray_y_dir);
@@ -90,8 +90,17 @@ void dda(t_data *data ,t_ray *r)
 			r->current_map_y +=r->step_y;
 			r->side_hit = Y_SIDE;
 		}
-		if(data->map.map_grid[r->current_map_x][r->current_map_y] ==1)
-		r->hit =1;
+		/* safe bounds check and correct indexing: map_grid[row][col] -> [y][x] */
+		if (r->current_map_y < 0 || r->current_map_y >= data->map.height ||
+			r->current_map_x < 0 || r->current_map_x >= data->map.width)
+		{
+			/* treat out-of-bounds as a wall to stop the ray */
+			r->hit = 1;
+			break;
+		}
+		char cell = data->map.map_grid[r->current_map_y][r->current_map_x];
+		if (cell == '1')
+			r->hit = 1;
 	}
 }
 

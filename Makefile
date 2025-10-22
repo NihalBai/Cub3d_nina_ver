@@ -2,12 +2,12 @@
 # Compiler & Flags
 # -----------------------
 CC = cc
-CFLAGS = -Wall -Wextra -Werror -I. -Ilibft -Iget_next_line -I$(MLX_DIR)
+CFLAGS = -Wall -Wextra -Werror -ggdb -O0 -fno-omit-frame-pointer -I. -Ilibft -Iget_next_line -I$(MLX_DIR)
 
 # -----------------------
 # Directories & Libraries
 # -----------------------
-MLX_DIR = /home/nbaidaou/Documents/minilibx-linux-master
+MLX_DIR = minilibx-linux
 LIBFT_DIR = libft
 GNL_DIR = get_next_line
 

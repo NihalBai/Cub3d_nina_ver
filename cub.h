@@ -6,7 +6,7 @@
 /*   By: nbaidaou <nbaidaou@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/22 15:30:18 by nbaidaou          #+#    #+#             */
-/*   Updated: 2025/10/21 11:40:58 by nbaidaou         ###   ########.fr       */
+/*   Updated: 2025/10/22 17:07:25 by nbaidaou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,8 @@
 #define CUB_H   
 
 # include "get_next_line/get_next_line.h"
-# include "/home/nbaidaou/Documents/minilibx-linux-master/mlx.h"
+#include "minilibx-linux/mlx.h"
+// # include "/home/nbaidaou/Documents/minilibx-linux-master/mlx.h"
 # include "libft/libft.h"
 # include <fcntl.h>
 # include <math.h>
@@ -27,9 +28,9 @@
 # define WIN_H 768
 
 # define KEY_W 119
-# define KEY_A 100
+# define KEY_A 97
 # define KEY_S 115
-# define KEY_D 97
+# define KEY_D 100
 # define KEY_LEFT 65361
 # define KEY_RIGHT 65363
 # define KEY_ESC 65307

@@ -6,7 +6,7 @@
 /*   By: nbaidaou <nbaidaou@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/18 20:41:21 by nbaidaou          #+#    #+#             */
-/*   Updated: 2025/10/22 13:40:09 by nbaidaou         ###   ########.fr       */
+/*   Updated: 2025/10/24 11:52:20 by nbaidaou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,14 +17,14 @@ static int	get_wall_texture(t_data *data)
 	if (data->ray.side_hit == X_SIDE)
 	{
 		if (data->ray.ray_x_dir > 0)
-			return (EA_TEX - 1);  // EA_TEX is 1, array index is 0
-		return (WE_TEX - 1);      // WE_TEX is 2, array index is 1
+			return (EA_TEX);
+		return (WE_TEX);
 	}
 	else
 	{
 		if (data->ray.ray_y_dir > 0)
-			return (SO_TEX - 1);  // SO_TEX is 3, array index is 2
-		return (NO_TEX - 1);      // NO_TEX is 4, array index is 3
+			return (SO_TEX);
+		return (NO_TEX);
 	}
 }
 

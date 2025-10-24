@@ -6,7 +6,7 @@
 /*   By: nbaidaou <nbaidaou@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/22 15:31:09 by nbaidaou          #+#    #+#             */
-/*   Updated: 2025/10/22 17:02:28 by nbaidaou         ###   ########.fr       */
+/*   Updated: 2025/10/24 11:50:56 by nbaidaou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -101,10 +101,7 @@ int	init_window(t_data *data)
 		return (0);
 	data->win = mlx_new_window(data->mlx, WIN_W, WIN_H, "Cub3D");
 	if (!data->win)
-	{
-		free(data->mlx);
-		return (0);
-	}
+		return (free(data->mlx), 0);
 	data->img.img = mlx_new_image(data->mlx, WIN_W, WIN_H);
 	if (!data->img.img)
 	{

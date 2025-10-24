@@ -6,13 +6,13 @@
 /*   By: nbaidaou <nbaidaou@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/24 11:13:59 by nbaidaou          #+#    #+#             */
-/*   Updated: 2025/09/06 11:19:07 by nbaidaou         ###   ########.fr       */
+/*   Updated: 2025/10/24 11:52:33 by nbaidaou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-char	*ft_strjoin(char  *s1, char  *s2)
+char	*ft_strjoin(char *s1, char *s2)
 {
 	char	*r;
 	size_t	l1;

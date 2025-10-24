@@ -6,63 +6,63 @@
 /*   By: nbaidaou <nbaidaou@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/23 15:32:40 by nbaidaou          #+#    #+#             */
-/*   Updated: 2025/10/24 10:25:49 by nbaidaou         ###   ########.fr       */
+/*   Updated: 2025/10/24 11:26:44 by nbaidaou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub.h"
 
-void free_map(t_data *data)
+void	free_map(t_data *data)
 {
-    int i;
+	int	i;
 
-    if (data->map.map_grid)
-    {
-        i = 0;
-        while (i < data->map.height)
-        {
-            free(data->map.map_grid[i]);
-            i++;
-        }
-        free(data->map.map_grid);
-    }
-    i = 0;
-    while (i < 4)
-    {
-        if (data->map.textures[i].path)
-            free(data->map.textures[i].path);
-        i++;
-    }
+	if (data->map.map_grid)
+	{
+		i = 0;
+		while (i < data->map.height)
+		{
+			free(data->map.map_grid[i]);
+			i++;
+		}
+		free(data->map.map_grid);
+	}
+	i = 0;
+	while (i < 4)
+	{
+		if (data->map.textures[i].path)
+			free(data->map.textures[i].path);
+		i++;
+	}
 }
 
-void destroy_textures(t_data *data)
+void	destroy_textures(t_data *data, int m)
 {
-    int i;
+	int	i;
 
-    i =0;
-    while (i < 4)
-    {
-        if (data->map.textures[i].img)
-        {
-            mlx_destroy_image(data->mlx, data->map.textures[i].img);
-            data->map.textures[i].img = NULL;
-        }
-        i++;
-    }
+	i = m;
+	while (i >= 0)
+	{
+		if (data->map.textures[i].img)
+		{
+			mlx_destroy_image(data->mlx, data->map.textures[i].img);
+			data->map.textures[i].img = NULL;
+		}
+		i--;
+	}
 }
 
-void free_all(t_data *data,char * msg,int ex)
+void	free_all(t_data *data, char *msg, int ex)
 {
-    if(msg)
-        printf("%s\n",msg);
-    destroy_textures(data);
-    if (data->mlx && data->win)
-        mlx_destroy_window(data->mlx, data->win);
-    if (data->mlx)
-    {
-        mlx_destroy_display(data->mlx);
-        free(data->mlx);
-    }
-    free_map(data);
-    exit(ex);
+	if (msg)
+		printf("%s\n", msg);
+	destroy_textures(data, 3);
+	if (data->mlx && data->win)
+		mlx_destroy_window(data->mlx, data->win);
+	if (data->mlx)
+	{
+		mlx_destroy_display(data->mlx);
+		free(data->mlx);
+	}
+	free_map(data);
+	exit(ex);
 }

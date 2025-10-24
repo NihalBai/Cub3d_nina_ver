@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   parsing.c                                          :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: nbaidaou <nbaidaou@student.1337.ma>        +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/10/24 11:18:06 by nbaidaou          #+#    #+#             */
+/*   Updated: 2025/10/24 11:54:10 by nbaidaou         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "cub.h"
 
 int	pars_textures(t_map *map, char *line)
@@ -6,8 +18,6 @@ int	pars_textures(t_map *map, char *line)
 	int		id;
 
 	id = -1;
-	// Match texture indices with your header defines
-	// EA_TEX 1 -> index 0, WE_TEX 2 -> index 1, SO_TEX 3 -> index 2, NO_TEX 4 -> index 3
 	if (ft_strncmp(line, "EA ", 3) == 0)
 		id = 0;
 	else if (ft_strncmp(line, "WE ", 3) == 0)
@@ -22,127 +32,78 @@ int	pars_textures(t_map *map, char *line)
 		return (0);
 	t = ft_strtrim(line + 3, " \n\t");
 	if (!t)
-		/* If this row is longer than previous width, we need to extend all earlier rows
-		   to the new width by padding with '1' so the map stays rectangular/closed. */
 		return (0);
 	map->textures[id].path = t;
 	return (1);
 }
 
-int parse_colors(t_map *map, char *line)
+static int	get_color_type(t_map *map, char *trim_line)
 {
-    char *trim_line;
-    char *tr;
-    int color;
-    int is_floor = -1;
+	int	is_floor;
 
-    if (!line)
-        return 0;
+	is_floor = -1;
+	if (ft_strncmp(trim_line, "F ", 2) == 0)
+		is_floor = 1;
+	else if (ft_strncmp(trim_line, "C ", 2) == 0)
+		is_floor = 0;
+	else
+		return (-1);
+	if ((is_floor && map->floor_color != -1) || (!is_floor
+			&& map->ceiling_color != -1))
+		return (-1);
+	return (is_floor);
+}
 
-    trim_line = ft_strtrim(line, " \t\n");
-    if (!trim_line)
-        return 0;
+int	parse_colors(t_map *map, char *line)
+{
+	char	*trim_line;
+	char	*tr;
+	int		color;
+	int		is_floor;
 
-    if (ft_strncmp(trim_line, "F ", 2) == 0)
-        is_floor = 1;
-    else if (ft_strncmp(trim_line, "C ", 2) == 0)
-        is_floor = 0;
-    else
-    {
-        free(trim_line);
-        return 0;
-    }
-
-    if ((is_floor && map->floor_color != -1) ||
-        (!is_floor && map->ceiling_color != -1))
-    {
-        free(trim_line);
-        return 0;
-    }
-
-    tr = ft_strtrim(trim_line + 2, " \t\n");
-    free(trim_line);
-    if (!tr)
-        return 0;
-
-    color = pars_color(tr);
-    free(tr);
-    if (color < 0)
-        return 0;
-
-    if (is_floor)
-        map->floor_color = color;
-    else
-        map->ceiling_color = color;
-
-    return 1;
+	if (!line)
+		return (0);
+	trim_line = ft_strtrim(line, " \t\n");
+	if (!trim_line)
+		return (0);
+	is_floor = get_color_type(map, trim_line);
+	if (is_floor == -1)
+		return (free(trim_line), 0);
+	tr = ft_strtrim(trim_line + 2, " \t\n");
+	free(trim_line);
+	if (!tr)
+		return (0);
+	color = parse_color(tr);
+	free(tr);
+	if (color < 0)
+		return (0);
+	floor_or_ceilling(map, is_floor, color);
+	return (1);
 }
 
 int	parse_map(t_map *map, char *line)
 {
 	char	**new_grid;
-	int		i;
-	int		len;
 
 	if (!safe_malloc((void **)&new_grid, sizeof(char *) * (map->height + 2)))
 		return (0);
-	i = 0;
-	while (i < map->height)
+	if (!copy_old_grid(new_grid, map->map_grid, map->height))
+		return (free(new_grid), 0);
+	char *(new_line) = ft_strtrim(line, "\n");
+	if (!new_line)
+		return (free(new_grid), 0);
+	int (len) = ft_strlen(new_line);
+	if (len > map->width && !pad_existing_rows(new_grid, map->height, len))
+		return (free(new_grid), free(new_line), 0);
+	if (len < map->width)
 	{
-		new_grid[i] = map->map_grid[i];
-		i++;
+		new_line = trim_and_pad_new_line(line, map->width);
+		if (!new_line)
+			return (free(new_grid), 0);
 	}
-	new_grid[i] = ft_strtrim(line, "\n");
-	if (!new_grid[i])
-	{
-		free(new_grid);
-		return (0);
-	}
-	len = ft_strlen(new_grid[i]);
-	/* If this row is longer than previous width, extend earlier rows */
-	if (len > map->width)
-	{
-	int r;
-
-		map->width = len;
-		r = 0;
-		while (r < map->height)
-		{
-			int cur_len = ft_strlen(new_grid[r]);
-			if (cur_len < map->width)
-			{
-				char *padded = malloc(map->width + 1);
-				if (!padded)
-				{
-					free(new_grid);
-					return (0);
-				}
-				ft_memcpy(padded, new_grid[r], cur_len);
-				ft_memset(padded + cur_len, '1', map->width - cur_len);
-				padded[map->width] = '\0';
-				free(new_grid[r]);
-				new_grid[r] = padded;
-			}
-			r++;
-		}
-	}
-	else if (len < map->width)
-	{
-		/* pad this new row to current map width with '1's */
-		char *padded = malloc(map->width + 1);
-		if (!padded)
-		{
-			free(new_grid);
-			return (0);
-		}
-		ft_memcpy(padded, new_grid[i], len);
-		ft_memset(padded + len, '1', map->width - len);
-		padded[map->width] = '\0';
-		free(new_grid[i]);
-		new_grid[i] = padded;
-		len = map->width;
-	}
-	new_grid[i + 1] = NULL;
+	new_grid[map->height] = new_line;
+	new_grid[map->height + 1] = NULL;
+	map->width = ft_max(map->width, len);
 	free(map->map_grid);
 	map->map_grid = new_grid;
 	map->height++;

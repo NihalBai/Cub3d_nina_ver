@@ -6,7 +6,7 @@
 /*   By: nbaidaou <nbaidaou@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/22 15:30:47 by nbaidaou          #+#    #+#             */
-/*   Updated: 2025/10/24 10:05:31 by nbaidaou         ###   ########.fr       */
+/*   Updated: 2025/10/24 11:55:40 by nbaidaou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,6 +33,7 @@ int	handle_close(t_data *data)
 	free_all(data, NULL, 0);
 	return (0);
 }
+
 int	main(int ac, char **av)
 {
 	t_data	data;

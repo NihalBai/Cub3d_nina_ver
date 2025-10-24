@@ -6,7 +6,7 @@
 /*   By: nbaidaou <nbaidaou@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/22 17:03:42 by nbaidaou          #+#    #+#             */
-/*   Updated: 2025/10/24 10:03:27 by nbaidaou         ###   ########.fr       */
+/*   Updated: 2025/10/24 11:57:42 by nbaidaou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ static int	handle_before_map(t_map *map, char *line)
 	color = parse_colors(map, line);
 	if (color)
 		return (1);
-    return 0;
+	return (0);
 }
 
 static int	handle_map_line(t_map *map, char *line)
@@ -41,7 +41,8 @@ int	parsing(t_map *map, int fd)
 	int		map_started;
 
 	map_started = 0;
-	while ((line = get_next_line(fd)))
+	line = get_next_line(fd);
+	while (line)
 	{
 		if (!map_started && handle_before_map(map, line))
 			;
@@ -54,6 +55,7 @@ int	parsing(t_map *map, int fd)
 		else if (map_started && !is_empty_line(line))
 			return (free(line), -1);
 		free(line);
+		line = get_next_line(fd);
 	}
 	return (check_all(map));
 }

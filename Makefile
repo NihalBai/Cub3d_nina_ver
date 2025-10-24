@@ -18,7 +18,7 @@ MLX_LIB = -L$(MLX_DIR) -lmlx_Linux -lX11 -lXext -lm
 # -----------------------
 # Source & Object Files
 # -----------------------
-SRC = init.c main_parsing.c parsing_helpers.c drawing.c keypress.c ray_casting.c f_free.c rendering.c load_textures.c  map_validation.c  rendering_helpers.c helpers.c  main.c parsing.c rotate_keypress.c
+SRC =drawing.c  helpers.c  keypress.c  main.c    map_val_helpers.c  parsing.c    parsing_norm_helpers.c rendering.c  rotate_keypress.c f_free.c   init.c     load_textures.c  main_parsing.c  map_validation.c   parsing_helpers.c  ray_casting.c           rendering_helpers.c
 OBJ = $(SRC:.c=.o)
 
 # -----------------------
@@ -35,7 +35,7 @@ all: $(NAME)
 $(NAME): $(OBJ) $(LIBFT_LIB) $(GNL_LIB) $(MLX_DIR)/libmlx_Linux.a
 	$(CC) $(CFLAGS) $(OBJ) $(LIBFT_LIB) $(GNL_LIB) $(MLX_LIB) -o $(NAME)
 
-%.o: %.c
+%.o: %.c cub.h
 	$(CC) $(CFLAGS) -c $< -o $@
 
 # -----------------------

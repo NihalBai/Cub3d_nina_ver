@@ -6,7 +6,7 @@
 /*   By: nbaidaou <nbaidaou@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/18 13:51:03 by nbaidaou          #+#    #+#             */
-/*   Updated: 2025/10/22 16:56:46 by nbaidaou         ###   ########.fr       */
+/*   Updated: 2025/10/24 10:43:11 by nbaidaou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,6 +29,7 @@ void	init_ray(t_data *data, t_ray *ray, int x)
 		ray->delta_dist_y = fabs(1 / ray->ray_y_dir);
 	ray->hit = 0;
 }
+
 void	steps_dir_init_side_dis(t_data *data, t_ray *ray)
 {
 	if (ray->ray_x_dir < 0)
@@ -74,50 +75,47 @@ void	wall_height(t_data *data, t_ray *r)
 		r->draw_pos_end = WIN_H - 1;
 }
 
-void dda(t_data *data ,t_ray *r)
+void	dda(t_data *data, t_ray *r)
 {
-	while (r->hit ==0)
+	while (r->hit == 0)
 	{
 		if (r->side_dist_x < r->side_dist_y)
 		{
 			r->side_dist_x += r->delta_dist_x;
-			r->current_map_x +=r->step_x;
+			r->current_map_x += r->step_x;
 			r->side_hit = X_SIDE;
 		}
 		else
 		{
 			r->side_dist_y += r->delta_dist_y;
-			r->current_map_y +=r->step_y;
+			r->current_map_y += r->step_y;
 			r->side_hit = Y_SIDE;
 		}
-		/* safe bounds check and correct indexing: map_grid[row][col] -> [y][x] */
-		if (r->current_map_y < 0 || r->current_map_y >= data->map.height ||
-			r->current_map_x < 0 || r->current_map_x >= data->map.width)
+		if (r->current_map_y < 0 || r->current_map_y >= data->map.height
+			|| r->current_map_x < 0 || r->current_map_x >= data->map.width)
 		{
-			/* treat out-of-bounds as a wall to stop the ray */
 			r->hit = 1;
-			break;
+			break ;
 		}
-		char cell = data->map.map_grid[r->current_map_y][r->current_map_x];
-		if (cell == '1')
+		if (data->map.map_grid[r->current_map_y][r->current_map_x] == '1')
 			r->hit = 1;
 	}
 }
 
 void	ray_casting(t_data *data)
 {
-	int x;
-	t_ray r;
+	int		x;
+	t_ray	r;
 
 	x = 0;
 	while (x < WIN_W)
 	{
 		init_ray(data, &r, x);
 		steps_dir_init_side_dis(data, &r);
-		dda(data,&r);
+		dda(data, &r);
 		wall_height(data, &r);
 		data->ray = r;
-		draw_walls(data,x);
+		draw_walls(data, x);
 		x++;
 	}
 }

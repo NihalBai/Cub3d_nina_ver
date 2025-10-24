@@ -6,7 +6,7 @@
 /*   By: nbaidaou <nbaidaou@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/23 15:32:40 by nbaidaou          #+#    #+#             */
-/*   Updated: 2025/10/22 13:54:42 by nbaidaou         ###   ########.fr       */
+/*   Updated: 2025/10/24 10:25:49 by nbaidaou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,7 +43,10 @@ void destroy_textures(t_data *data)
     while (i < 4)
     {
         if (data->map.textures[i].img)
+        {
             mlx_destroy_image(data->mlx, data->map.textures[i].img);
+            data->map.textures[i].img = NULL;
+        }
         i++;
     }
 }

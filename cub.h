@@ -6,7 +6,7 @@
 /*   By: nbaidaou <nbaidaou@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/22 15:30:18 by nbaidaou          #+#    #+#             */
-/*   Updated: 2025/10/22 17:07:25 by nbaidaou         ###   ########.fr       */
+/*   Updated: 2025/10/24 10:05:04 by nbaidaou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,8 +14,8 @@
 #define CUB_H   
 
 # include "get_next_line/get_next_line.h"
-#include "minilibx-linux/mlx.h"
-// # include "/home/nbaidaou/Documents/minilibx-linux-master/mlx.h"
+// #include "minilibx-linux/mlx.h"
+# include "/home/nbaidaou/Documents/minilibx-linux-master/mlx.h"
 # include "libft/libft.h"
 # include <fcntl.h>
 # include <math.h>
@@ -156,7 +156,7 @@ int init_player(t_player *player, t_map *map);
 int init_window(t_data *data);
 
 // Load_textures
-int load_textues(t_data *data);
+int	load_textures(t_data *data);
 
 // free 
 void free_map(t_data *data);

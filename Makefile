@@ -7,7 +7,7 @@ CFLAGS = -Wall -Wextra -Werror -ggdb -O0 -fno-omit-frame-pointer -I. -Ilibft -Ig
 # -----------------------
 # Directories & Libraries
 # -----------------------
-MLX_DIR = minilibx-linux
+MLX_DIR = /home/nbaidaou/Documents/minilibx-linux-master
 LIBFT_DIR = libft
 GNL_DIR = get_next_line
 
@@ -57,7 +57,6 @@ clean:
 	rm -f $(OBJ)
 	@$(MAKE) -C $(LIBFT_DIR) clean
 	@$(MAKE) -C $(GNL_DIR) clean
-	@$(MAKE) -C $(MLX_DIR) clean
 	@echo "🧹 Cleaned object files!"
 
 fclean: clean
